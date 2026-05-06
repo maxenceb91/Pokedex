@@ -1,11 +1,11 @@
 <?php 
-include 'head.php';
+include 'components/head.php';
 require_once 'utils/pokemon.php';
 $pokemons = getPokemons();
 ?>
 
 <body>
-    <h1>Pokédex</h1>
+    <?php include 'components/header.php'; ?>
     <ul>
         <?php foreach ($pokemons as $pokemon): ?>
             <li>
