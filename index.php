@@ -8,7 +8,7 @@ $pokemons = getPokemons();
     <?php include 'components/header.php'; ?>
     <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
         <?php foreach ($pokemons as $pokemon): ?>
-            <li class="bg-white rounded-lg shadow-md p-4 flex flex-col items-center">
+            <li class="card bg-white rounded-lg shadow-md p-4 flex flex-col items-center hover:bg-gray-100 cursor-pointer hover:shadow-lg transition-shadow duration-300 hover:scale-105 transition-transform duration-300">
                 <img class="w-40 h-40 object-contain" src="<?php echo $pokemon->icon; ?>" alt="<?php echo $pokemon->name; ?>">
                 <div class="mt-4 w-full text-center">
                     <h2 class="text-lg font-bold text-gray-800 capitalize"><?php echo $pokemon->name; ?></h2>
