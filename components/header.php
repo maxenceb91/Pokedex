@@ -1,8 +1,8 @@
 <header class="flex items-center justify-between p-15 bg-white shadow-md mb-10">
-    <div class="flex items-center gap-4">
+    <a href="/Pokedex/index.php" class="flex items-center gap-4">
         <img src="/Pokedex/assets/pokeball.png" alt="Pokéball" class="w-10 h-10">
         <h1 class="text-2xl font-bold text-gray-800">Pokédex</h1>
-    </div>
+    </a>
     <nav>
         <ul class="flex items-center gap-10">
             <li class="group text-lg font-medium text-gray-700">
