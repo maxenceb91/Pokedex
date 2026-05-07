@@ -1,10 +1,6 @@
 <?php
 require_once 'pdo.php';
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
 class User {
     public $id = 0;
     public $username = '';
