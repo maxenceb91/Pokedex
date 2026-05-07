@@ -12,7 +12,6 @@
                 <a href="/Pokedex/pages/types.php" class="relative inline-block pb-1 transition-colors duration-300 ease-in-out hover:text-red-600 after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-red-600 after:transition-transform after:duration-300 after:ease-in-out group-hover:after:scale-x-100">Types</a>
             </li>
             <?php
-            session_start();
             if (isset($_SESSION['user_id'])):
                 require_once __DIR__ . '/../utils/users.php';
                 $user = getUserById($_SESSION['user_id']);

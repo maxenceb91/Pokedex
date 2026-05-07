@@ -1,6 +1,10 @@
 <?php
 require_once 'pdo.php';
 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 class User {
     public $id = 0;
     public $username = '';
@@ -10,7 +14,7 @@ class User {
     public $created_at = '';
 
     function getIcon() {
-        return $this->icon_url ?: '/Pokedex/assets/default.png';
+        return $this->icon_url ?: '/Pokedex/assets/default.jpg';
     }
 
     function save() {
@@ -42,8 +46,10 @@ function authenticateUser($email = '', $password = '') {
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     
     if ($row && password_verify($password, $row['password_hash'])) {
-        session_start();
         $_SESSION['user_id'] = $row['id'];
+        $_SESSION['email'] = $row['email'];
+        $_SESSION['user_email'] = $row['email'];
+        $_SESSION['user'] = $row;
         return true;
     }
     return false;
