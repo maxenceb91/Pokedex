@@ -26,7 +26,7 @@ class User {
     }
 }
 
-function addUser($username, $email, $password) {
+function addUser($username = '', $email = '', $password = '') {
     $user = new User();
     $user->username = $username;
     $user->email = $email;
@@ -35,7 +35,7 @@ function addUser($username, $email, $password) {
     return $user;
 }
 
-function authenticateUser($email, $password) {
+function authenticateUser($email = '', $password = '') {
     global $pdo;
     $stmt = $pdo->prepare('SELECT * FROM users WHERE email = ?');
     $stmt->execute([$email]);
@@ -64,7 +64,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $users[] = $user;
 }
 
-function getUserById($id) {
+function getUserById($id = 0) {
     global $users;
     foreach ($users as $user) {
         if ($user->id == $id) {
