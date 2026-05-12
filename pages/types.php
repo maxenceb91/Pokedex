@@ -140,6 +140,12 @@ $renderBadge = function($list) use ($typeIds, $typeColors) {
                                     <p class="text-[10px] font-black text-rose-400 uppercase mb-1">Réduit (x0.5)</p>
                                     <?= $renderBadge($type->half_damage_to) ?>
                                 </div>
+                                <?php if (!empty(array_filter($type->no_damage_to))): ?>
+                                <div>
+                                    <p class="text-[10px] font-black text-violet-600 uppercase mb-1">Pas d'effet (x0)</p>
+                                    <?= $renderBadge($type->no_damage_to) ?>
+                                </div>
+                                <?php endif; ?>
                             </div>
                         </div>
 
