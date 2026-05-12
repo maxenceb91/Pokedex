@@ -25,9 +25,9 @@ $pokemon = getPokemonByName($_GET['name']);
                             <img src="<?php echo $pokemon->sprite_url; ?>" alt="<?php echo $pokemon->name; ?>" class="w-64 h-64 object-contain drop-shadow-lg">
                         </div>
                         <div class="space-y-4">
-                            <div class="bg-gradient-to-r from-yellow-50 to-amber-100 p-4 rounded-lg border-l-4 border-yellow-500">
+                            <div class="bg-gradient-to-r from-green-50 to-amber-100 p-4 rounded-lg border-l-4 border-green-500">
                                 <p class="text-sm text-gray-600">Type</p>
-                                <p class="text-lg font-bold text-yellow-700"><?php echo $pokemon->type_1; ?><?php echo $pokemon->type_2 ? ' / ' . $pokemon->type_2 : ''; ?></p>
+                                <p class="text-lg font-bold text-green-700"><?php echo $pokemon->type_1; ?><?php echo $pokemon->type_2 ? ' / ' . $pokemon->type_2 : ''; ?></p>
                             </div>
                             <div class="bg-gradient-to-r from-red-50 to-red-100 p-4 rounded-lg border-l-4 border-red-500">
                                 <p class="text-sm text-gray-600">Genre</p>
