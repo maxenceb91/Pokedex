@@ -36,6 +36,10 @@ class Pokemon {
     
     public $icon = '';
     public $types = [];
+    
+    function getIcon() {
+        return $this->icon ?: '/Pokedex/assets/default.jpg';
+    }
 }
 
 $pokemons = [];

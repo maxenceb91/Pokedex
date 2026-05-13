@@ -1,18 +1,43 @@
 <?php
 include '../components/head.php';
+require_once '../utils/users.php';
 require_once '../utils/pokemon.php';
 $pokemon = getPokemonByName($_GET['name']);
+
+if (isset($_GET['action']) && $_GET['action'] === 'add-to-team' && isset($_GET['name'])) {
+    if (containsPokemon($_GET['name'])) {
+        echo '<div class="fixed bottom-6 right-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 px-6 py-4 rounded-lg shadow-lg font-semibold flex items-center gap-3 z-50" style="animation: fadeIn .45s ease-out forwards;">
+                <span class="text-2xl">⚠️</span>
+                Ce Pokémon est déjà dans votre équipe.
+            </div>';
+    } else {
+        if (addPokemonToTeam($_GET['name'])) {
+            echo '<div class="fixed bottom-6 right-6 bg-green-100 border-l-4 border-green-500 text-green-800 px-6 py-4 rounded-lg shadow-lg font-semibold flex items-center gap-3 z-50" style="animation: fadeIn .45s ease-out forwards;">
+                <span class="text-2xl">✅</span>
+                Pokémon ajouté à votre équipe !
+            </div>';
+        } else {
+            echo '<div class="fixed bottom-6 right-6 bg-red-100 border-l-4 border-red-500 text-red-800 px-6 py-4 rounded-lg shadow-lg font-semibold flex items-center gap-3 z-50" style="animation: fadeIn .45s ease-out forwards;">
+                <span class="text-2xl">❌</span>
+                Votre équipe est déjà complète.
+            </div>';
+        }
+    }
+}
 ?>
 
 <body>
     <?php include 'header.php'; ?>
 
     <div class="bg-white min-h-screen p-6">
-        <p class="mb-6">
+        <div class="mb-6 flex items-center justify-between gap-4">
             <a href="../index.php" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-red-600 text-white font-semibold shadow-md transition duration-200 hover:bg-red-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2">
                 ← Retour à la liste
             </a>
-        </p>
+            <a href="?name=<?php echo urlencode($_GET['name']); ?>&action=add-to-team" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-blue-600 text-white font-semibold shadow-md transition duration-200 hover:bg-blue-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2">
+                + Ajouter à l'équipe
+            </a>
+        </div>
         <div class="max-w-4xl mx-auto">
             <div class="bg-gradient-to-br from-white to-yellow-50 rounded-2xl shadow-2xl overflow-hidden">
                 <div class="bg-red-600 p-8 text-white text-center">
