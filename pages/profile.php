@@ -22,7 +22,8 @@ include '../components/head.php';
                 </div>
                 <p class="text-gray-700"><strong>Compte créé le:</strong> <?php echo htmlspecialchars($user->created_at ?: 'Date inconnue'); ?></p>
                 <form method="POST" class="mt-6">
-                    <button type="submit" name="logout" class="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg">Déconnexion</button>
+                    <button type="submit" name="logout" class="w-full bg-red-500 text-white font-semibold py-2 px-4 rounded-lg
+                    hover:bg-red-600 hover:cursor-pointer">Déconnexion</button>
                 </form>
                 <?php
                     if (isset($_POST['logout'])) {
