@@ -10,14 +10,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($email) || empty($password)) {
         $error = 'Tous les champs sont obligatoires.';
-    } elseif (
-        strlen($password) < 8 ||
-        !preg_match('/[A-Z]/', $password) ||
-        !preg_match('/[a-z]/', $password) ||
-        !preg_match('/[0-9]/', $password) ||
-        !preg_match('/[^a-zA-Z0-9]/', $password)
-    ) {
-        $error = 'Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un symbole.';
     } else {
         try {
             if (authenticateUser($email, $password)) {
