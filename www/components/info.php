@@ -30,6 +30,32 @@ if (isset($_GET['action']) && $_GET['action'] === 'add-to-team' && isset($_GET['
             }
         }
     }
+}else if(isset($_GET['action']) && $_GET['action'] === 'remove-from-team' && isset($_GET['name'])) {
+    if (empty($_SESSION['user_id'])) {
+        echo '<div class="fixed bottom-6 right-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 px-6 py-4 rounded-lg shadow-lg font-semibold flex items-center gap-3 z-50" style="animation: fadeIn .45s ease-out forwards;">
+                <span class="text-2xl">⚠️</span>
+                Vous devez être connecté pour effectuer cette action.
+            </div>';
+    } else {
+        if (!containsPokemon($_GET['name'])) {
+            echo '<div class="fixed bottom-6 right-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 px-6 py-4 rounded-lg shadow-lg font-semibold flex items-center gap-3 z-50" style="animation: fadeIn .45s ease-out forwards;">
+                <span class="text-2xl">⚠️</span>
+                Ce Pokémon n\'est pas dans votre équipe.
+            </div>';
+        } else {
+            if (removePokemonFromTeam($_GET['name'])) {
+                echo '<div class="fixed bottom-6 right-6 bg-green-100 border-l-4 border-green-500 text-green-800 px-6 py-4 rounded-lg shadow-lg font-semibold flex items-center gap-3 z-50" style="animation: fadeIn .45s ease-out forwards;">
+                <span class="text-2xl">✅</span>
+                Pokémon retiré de votre équipe !
+            </div>';
+            } else {
+                echo '<div class="fixed bottom-6 right-6 bg-red-100 border-l-4 border-red-500 text-red-800 px-6 py-4 rounded-lg shadow-lg font-semibold flex items-center gap-3 z-50" style="animation: fadeIn .45s ease-out forwards;">
+                <span class="text-2xl">❌</span>
+                Une erreur est survenue lors de la suppression du Pokémon.
+            </div>';
+            }
+        }
+    }
 }
 ?>
 
@@ -41,8 +67,9 @@ if (isset($_GET['action']) && $_GET['action'] === 'add-to-team' && isset($_GET['
             <a href="../index.php" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-red-600 text-white font-semibold shadow-md transition duration-200 hover:bg-red-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2">
                 ← Retour à la liste
             </a>
-            <a href="?name=<?php echo urlencode($_GET['name']); ?>&action=add-to-team" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-blue-600 text-white font-semibold shadow-md transition duration-200 hover:bg-blue-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2">
-                + Ajouter à l'équipe
+        
+            <a href="?name=<?php echo urlencode($_GET['name']); ?>&action=<?php echo containsPokemon($_GET['name']) ? 'remove-from-team' : 'add-to-team'; ?>" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-white font-semibold shadow-md transition duration-200 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 <?php echo containsPokemon($_GET['name']) ? 'bg-red-600 hover:bg-red-700 focus:ring-red-400' : 'bg-green-600 hover:bg-green-700 focus:ring-green-400'; ?>">
+                <?php if (containsPokemon($_GET['name'])) { echo '❌ Supprimer de l\'équipe'; } else { echo '✅ Ajouter à l\'équipe'; } ?>
             </a>
         </div>
         <div class="max-w-4xl mx-auto">
