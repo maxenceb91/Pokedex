@@ -5,22 +5,29 @@ require_once '../utils/pokemon.php';
 $pokemon = getPokemonByName($_GET['name']);
 
 if (isset($_GET['action']) && $_GET['action'] === 'add-to-team' && isset($_GET['name'])) {
-    if (containsPokemon($_GET['name'])) {
+    if (empty($_SESSION['user_id'])) {
         echo '<div class="fixed bottom-6 right-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 px-6 py-4 rounded-lg shadow-lg font-semibold flex items-center gap-3 z-50" style="animation: fadeIn .45s ease-out forwards;">
+                <span class="text-2xl">⚠️</span>
+                Vous devez être connecté pour effectuer cette action.
+            </div>';
+    } else {
+        if (containsPokemon($_GET['name'])) {
+            echo '<div class="fixed bottom-6 right-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 px-6 py-4 rounded-lg shadow-lg font-semibold flex items-center gap-3 z-50" style="animation: fadeIn .45s ease-out forwards;">
                 <span class="text-2xl">⚠️</span>
                 Ce Pokémon est déjà dans votre équipe.
             </div>';
-    } else {
-        if (addPokemonToTeam($_GET['name'])) {
-            echo '<div class="fixed bottom-6 right-6 bg-green-100 border-l-4 border-green-500 text-green-800 px-6 py-4 rounded-lg shadow-lg font-semibold flex items-center gap-3 z-50" style="animation: fadeIn .45s ease-out forwards;">
+        } else {
+            if (addPokemonToTeam($_GET['name'])) {
+                echo '<div class="fixed bottom-6 right-6 bg-green-100 border-l-4 border-green-500 text-green-800 px-6 py-4 rounded-lg shadow-lg font-semibold flex items-center gap-3 z-50" style="animation: fadeIn .45s ease-out forwards;">
                 <span class="text-2xl">✅</span>
                 Pokémon ajouté à votre équipe !
             </div>';
-        } else {
-            echo '<div class="fixed bottom-6 right-6 bg-red-100 border-l-4 border-red-500 text-red-800 px-6 py-4 rounded-lg shadow-lg font-semibold flex items-center gap-3 z-50" style="animation: fadeIn .45s ease-out forwards;">
+            } else {
+                echo '<div class="fixed bottom-6 right-6 bg-red-100 border-l-4 border-red-500 text-red-800 px-6 py-4 rounded-lg shadow-lg font-semibold flex items-center gap-3 z-50" style="animation: fadeIn .45s ease-out forwards;">
                 <span class="text-2xl">❌</span>
                 Votre équipe est déjà complète.
             </div>';
+            }
         }
     }
 }
