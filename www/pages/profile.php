@@ -95,7 +95,7 @@ include '../components/head.php';
                     <?php foreach ($team as $pokemon_name): ?>
                         <?php $pokemon = getPokemonByName($pokemon_name); ?>
                         <?php if ($pokemon): ?>
-                            <div class="card-team rounded-xl border border-gray-200 bg-gray-50 p-3 flex flex-col items-center text-center gap-2 transition duration-300 cursor-pointer hover:bg-red-100 hover:border-gray-300 hover:shadow-md hover:-translate-y-1 hover:scale-105" onclick="window.location.href='../components/info.php?name=<?php echo urlencode($pokemon->name); ?>'">
+                            <div class="card-team rounded-xl border border-gray-200 bg-gray-50 p-3 flex flex-col items-center text-center gap-2 transition duration-300 cursor-pointer hover:bg-red-100 hover:border-gray-300 hover:shadow-md hover:-translate-y-1 hover:scale-105" onclick="window.location.href='../components/info.php?name=<?php echo urlencode(strtolower($pokemon->name)); ?>'">
                                 <div class="w-14 h-14 rounded-full bg-white border border-gray-200 flex items-center justify-center shadow-sm overflow-hidden">
                                     <img src="<?php echo htmlspecialchars($pokemon->getIcon(), ENT_QUOTES, 'UTF-8'); ?>" alt="<?php echo htmlspecialchars($pokemon->name, ENT_QUOTES, 'UTF-8'); ?>" class="w-11 h-11 object-cover">
                                 </div>
