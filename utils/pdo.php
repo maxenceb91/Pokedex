@@ -1,8 +1,8 @@
 <?php
-$host = 'localhost';
-$dbname = 'pokedex';
-$username = 'root';
-$password = '';
+$host = 'mysql-pokedexx.alwaysdata.net';
+$dbname = 'pokedexx_bdd';
+$username = 'pokedexx';
+$password = 'U76Ac5u3Nhj7Rf';
 
 try {
 	$pdo = new PDO(
