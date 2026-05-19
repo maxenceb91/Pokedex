@@ -10,7 +10,7 @@ class User {
     public $created_at = '';
 
     function getIcon() {
-        return $this->icon_url ?: '/Pokedex/assets/default.jpg';
+        return $this->icon_url ?: '../assets/default.jpg';
     }
 
     function save() {
