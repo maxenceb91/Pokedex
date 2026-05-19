@@ -43,14 +43,28 @@ include '../components/head.php';
             <div class="lg:col-span-5 bg-white/90 backdrop-blur shadow-sm rounded-2xl border border-gray-200 p-5">
                 <h2 class="text-lg font-semibold mb-4">Informations personnelles</h2>
                 <?php if ($user): ?>
+                    <form action="../utils/upload_icon.php" method="post" enctype="multipart/form-data">
                     <div class="flex items-center gap-4">
-                        <img src="<?php echo htmlspecialchars($user->getIcon(), ENT_QUOTES, 'UTF-8'); ?>" alt="Avatar" class="w-16 h-16 rounded-full object-cover border border-gray-200 ring-4 ring-gray-50">
+                        <div class="relative group w-16 h-16">
+                            <input type="file" id="avatarFile" name="avatar" class="hidden" accept="image/*" onchange="this.form.submit()">
+
+                            <label for="avatarFile" class="cursor-pointer">
+                                <img src="<?php echo htmlspecialchars($user->getIcon(), ENT_QUOTES, 'UTF-8'); ?>"
+                                    alt="Avatar"
+                                    class="w-16 h-16 rounded-full object-cover border border-gray-200 ring-4 ring-gray-50">
+
+                                <div class="absolute inset-0 rounded-full bg-black/45 text-white text-xl font-semibold flex items-center justify-center opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                                    ✏️
+                                </div>
+                            </label>
+                        </div>
                         <div class="min-w-0">
                             <p class="text-lg font-semibold truncate"><?php echo htmlspecialchars($user->username); ?></p>
                             <p class="text-sm text-gray-600 truncate"><?php echo htmlspecialchars($user->email); ?></p>
                             <p class="text-xs text-gray-500 mt-1">Compte créé le : <?php echo htmlspecialchars($user->created_at ?: 'Date inconnue'); ?></p>
                         </div>
                     </div>
+                </form>
 
                     <form method="POST" class="mt-5">
                         <button type="submit" name="logout" class="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-red-500 px-4 py-2.5 text-white font-semibold leading-none transition hover:bg-red-600 hover:cursor-pointer">

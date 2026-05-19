@@ -1,5 +1,6 @@
 <?php
 require_once 'pdo.php';
+$basePath = basename($_SERVER['PHP_SELF']) === 'index.php' ? '' : '../';
 
 class User {
     public $id = 0;
@@ -10,7 +11,8 @@ class User {
     public $created_at = '';
 
     function getIcon() {
-        return $this->icon_url ?: '../assets/default.jpg';
+        global $basePath;
+        return $basePath . ($this->icon_url ? : 'assets/default.jpg');
     }
 
     function save() {
@@ -96,6 +98,13 @@ function getUserId() {
 function getUsers() {
     global $users;
     return $users;
+}
+
+function setIcon($url = '') {
+    global $pdo;
+    $user_id = getUserId();
+    $stmt = $pdo->prepare('UPDATE users SET icon_url = ? WHERE id = ?');
+    $stmt->execute([$url, $user_id]);
 }
 
 function containsPokemon($pokemon_name = '') {
