@@ -1,5 +1,9 @@
 # Pokédex
 
+## Lien du projet en ligne
+
+https://pokedexx.alwaysdata.net/
+
 ## Source des données
 Le jeu de données utilisé provient de la plateforme Kaggle : 
 - **Nom du dataset** : Pokemon Dataset with stats and types
