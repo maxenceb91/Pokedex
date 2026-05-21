@@ -9,6 +9,7 @@ class User {
     public $password_hash = ''; 
     public $icon_url = '';
     public $created_at = '';
+    public $admin = 0;
 
     function getIcon() {
         global $basePath;
@@ -18,11 +19,11 @@ class User {
     function save() {
         global $pdo;
         if ($this->id) {
-            $stmt = $pdo->prepare('UPDATE users SET username = ?, email = ?, password_hash = ?, icon_url = ? WHERE id = ?');
-            $stmt->execute([$this->username, $this->email, $this->password_hash, $this->icon_url, $this->id]);
+            $stmt = $pdo->prepare('UPDATE users SET username = ?, email = ?, password_hash = ?, icon_url = ?, admin = ? WHERE id = ?');
+            $stmt->execute([$this->username, $this->email, $this->password_hash, $this->icon_url, $this->admin, $this->id]);
         } else {
-            $stmt = $pdo->prepare('INSERT INTO users (username, email, password_hash, icon_url) VALUES (?, ?, ?, ?)');
-            $stmt->execute([$this->username, $this->email, $this->password_hash, $this->icon_url]);
+            $stmt = $pdo->prepare('INSERT INTO users (username, email, password_hash, icon_url, admin) VALUES (?, ?, ?, ?, ?)');
+            $stmt->execute([$this->username, $this->email, $this->password_hash, $this->icon_url, $this->admin]);
             $this->id = $pdo->lastInsertId();
         }
     }
@@ -41,6 +42,12 @@ function addUser($username = '', $email = '', $password = '') {
     $user->password_hash = password_hash($password, PASSWORD_DEFAULT);
     $user->save();
     return $user;
+}
+
+function deleteUser($user_id = 0) {
+    global $pdo;
+    $stmt = $pdo->prepare('DELETE FROM users WHERE id = ?');
+    $stmt->execute([$user_id]);
 }
 
 function authenticateUser($email = '', $password = '') {

@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../utils/users.php';
 $basePath = basename($_SERVER['PHP_SELF']) === 'index.php' ? '' : '../';
 ?>
 
@@ -16,12 +17,20 @@ $basePath = basename($_SERVER['PHP_SELF']) === 'index.php' ? '' : '../';
                 <a href="<?php echo $basePath; ?>pages/types.php" class="relative inline-block pb-1 transition-colors duration-300 ease-in-out hover:text-red-600 after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-red-600 after:transition-transform after:duration-300 after:ease-in-out group-hover:after:scale-x-100">Types</a>
             </li>
             <?php
+            $userId = getUserId();
+            $user = getUserById($userId);
+            if ($user && $user->admin) {
+                echo '<li class="group text-lg font-medium text-gray-700">
+                        <a href="' . $basePath . 'pages/admin.php" class="relative inline-block pb-1 transition-colors duration-300 ease-in-out hover:text-red-600 after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-red-600 after:transition-transform after:duration-300 after:ease-in-out group-hover:after:scale-x-100">Admin</a>
+                    </li>';
+            }
+            ?>
+            <?php
             if (isset($_SESSION['user_id'])):
-                require_once __DIR__ . '/../utils/users.php';
                 $user = getUserById($_SESSION['user_id']);
                 $icon = $user->getIcon();
 
-                                echo '<li class="flex items-center">
+                echo '<li class="flex items-center">
                         <a href="' . $basePath . 'pages/profile.php" class="inline-block">
                             <div class="border-2 border-gray-300 rounded-full p-0.5 hover:scale-105 transition-transform duration-300 ease-in-out"> 
                                 <img src="' . htmlspecialchars($icon, ENT_QUOTES, 'UTF-8') . '" 
