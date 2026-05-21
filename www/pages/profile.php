@@ -21,6 +21,12 @@ if (isset($_POST['logout'])) {
     exit();
 }
 
+if (isset($_GET['error']) && $_GET['error'] === 'invalid_password') {
+    $errorMessage = 'Le mot de passe doit comporter au moins 8 caractères, inclure une majuscule, une minuscule, un chiffre et un caractère spécial.';
+} else {
+    $errorMessage = '';
+}
+
 include '../components/head.php';
 ?>
 
@@ -44,27 +50,27 @@ include '../components/head.php';
                 <h2 class="text-lg font-semibold mb-4">Informations personnelles</h2>
                 <?php if ($user): ?>
                     <form action="../utils/upload_icon.php" method="post" enctype="multipart/form-data">
-                    <div class="flex items-center gap-4">
-                        <div class="relative group w-16 h-16">
-                            <input type="file" id="avatarFile" name="avatar" class="hidden" accept="image/*" onchange="this.form.submit()">
+                        <div class="flex items-center gap-4">
+                            <div class="relative group w-16 h-16">
+                                <input type="file" id="avatarFile" name="avatar" class="hidden" accept="image/*" onchange="this.form.submit()">
 
-                            <label for="avatarFile" class="cursor-pointer">
-                                <img src="<?php echo htmlspecialchars($user->getIcon(), ENT_QUOTES, 'UTF-8'); ?>"
-                                    alt="Avatar"
-                                    class="w-16 h-16 rounded-full object-cover border border-gray-200 ring-4 ring-gray-50">
+                                <label for="avatarFile" class="cursor-pointer">
+                                    <img src="<?php echo htmlspecialchars($user->getIcon(), ENT_QUOTES, 'UTF-8'); ?>"
+                                        alt="Avatar"
+                                        class="w-16 h-16 rounded-full object-cover border border-gray-200 ring-4 ring-gray-50">
 
-                                <div class="absolute inset-0 rounded-full bg-black/45 text-white text-xl font-semibold flex items-center justify-center opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-                                    ✏️
-                                </div>
-                            </label>
+                                    <div class="absolute inset-0 rounded-full bg-black/45 text-white text-xl font-semibold flex items-center justify-center opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                                        ✏️
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="min-w-0">
+                                <p class="text-lg font-semibold truncate"><?php echo htmlspecialchars($user->username); ?></p>
+                                <p class="text-sm text-gray-600 truncate"><?php echo htmlspecialchars($user->email); ?></p>
+                                <p class="text-xs text-gray-500 mt-1">Compte créé le : <?php echo htmlspecialchars($user->created_at ?: 'Date inconnue'); ?></p>
+                            </div>
                         </div>
-                        <div class="min-w-0">
-                            <p class="text-lg font-semibold truncate"><?php echo htmlspecialchars($user->username); ?></p>
-                            <p class="text-sm text-gray-600 truncate"><?php echo htmlspecialchars($user->email); ?></p>
-                            <p class="text-xs text-gray-500 mt-1">Compte créé le : <?php echo htmlspecialchars($user->created_at ?: 'Date inconnue'); ?></p>
-                        </div>
-                    </div>
-                </form>
+                    </form>
 
                     <form method="POST" class="mt-5">
                         <button type="submit" name="logout" class="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-red-500 px-4 py-2.5 text-white font-semibold leading-none transition hover:bg-red-600 hover:cursor-pointer">
@@ -110,45 +116,51 @@ include '../components/head.php';
         <div class="mt-5 text-sm text-gray-500">
             <h3 class="text-sm font-medium text-gray-700 mb-2">Modifier les informations</h3>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <form action="edit_profile.php" method="post" class="rounded-lg border border-gray-200 p-3 bg-white/80 transition hover:bg-gray-50 hover:shadow-sm">
+                <form action="../utils/edit_profile.php" method="post" class="rounded-lg border border-gray-200 p-3 bg-white/80 transition hover:bg-gray-50 hover:shadow-sm">
                     <div class="flex items-center gap-2 mb-2">
                         <i class="ri-user-line text-lg text-gray-600"></i>
                         <div class="text-sm font-semibold">Pseudo</div>
                     </div>
                     <div class="flex items-center gap-2">
                         <input type="text" name="username" value="<?php echo htmlspecialchars($user->username ?? '', ENT_QUOTES, 'UTF-8'); ?>" class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100" placeholder="Nouveau pseudo">
-                        <button type="submit" class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-red-500 text-white transition hover:bg-red-600" aria-label="Modifier le pseudo">
+                        <button type="submit" name="edit_username" class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-red-500 text-white transition hover:bg-red-600" aria-label="Modifier le pseudo">
                             <i class="ri-pencil-fill text-lg"></i>
                         </button>
                     </div>
                 </form>
 
-                <form action="edit_email.php" method="post" class="rounded-lg border border-gray-200 p-3 bg-white/80 transition hover:bg-gray-50 hover:shadow-sm">
+                <form action="../utils/edit_profile.php" method="post" class="rounded-lg border border-gray-200 p-3 bg-white/80 transition hover:bg-gray-50 hover:shadow-sm">
                     <div class="flex items-center gap-2 mb-2">
                         <i class="ri-mail-line text-lg text-gray-600"></i>
                         <div class="text-sm font-semibold">Email</div>
                     </div>
                     <div class="flex items-center gap-2">
                         <input type="email" name="email" value="<?php echo htmlspecialchars($user->email ?? '', ENT_QUOTES, 'UTF-8'); ?>" class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100" placeholder="Nouvel email">
-                        <button type="submit" class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-red-500 text-white transition hover:bg-red-600" aria-label="Modifier l'email">
+                        <button type="submit" name="edit_email" class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-red-500 text-white transition hover:bg-red-600" aria-label="Modifier l'email">
                             <i class="ri-pencil-fill text-lg"></i>
                         </button>
                     </div>
                 </form>
 
-                <form action="change_password.php" method="post" class="rounded-lg border border-gray-200 p-3 bg-white/80 transition hover:bg-gray-50 hover:shadow-sm">
+                <form action="../utils/edit_profile.php" method="post" class="rounded-lg border border-gray-200 p-3 bg-white/80 transition hover:bg-gray-50 hover:shadow-sm">
                     <div class="flex items-center gap-2 mb-2">
                         <i class="ri-lock-password-line text-lg text-gray-600"></i>
                         <div class="text-sm font-semibold">Mot de passe</div>
                     </div>
                     <div class="flex items-center gap-2">
                         <input type="password" name="password" class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 outline-none transition focus:border-red-400 focus:ring-2 focus:ring-red-100" placeholder="Nouveau mot de passe">
-                        <button type="submit" class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-red-500 text-white transition hover:bg-red-600" aria-label="Modifier le mot de passe">
+                        <button type="submit" name="edit_password" class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-red-500 text-white transition hover:bg-red-600" aria-label="Modifier le mot de passe">
                             <i class="ri-pencil-fill text-lg"></i>
                         </button>
                     </div>
                 </form>
             </div>
         </div>
+
+        <?php if ($errorMessage): ?>
+            <div class="rounded-lg bg-red-100 border border-red-400 text-red-700 px-4 py-3">
+                <?php echo htmlspecialchars($errorMessage); ?>
+            </div>
+        <?php endif; ?>
     </div>
 </body>

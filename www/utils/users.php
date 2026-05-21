@@ -11,6 +11,18 @@ class User {
     public $created_at = '';
     public $admin = 0;
 
+    function setUsername($username = '') {
+        $this->username = $username;
+    }
+
+    function setEmail($email = '') {
+        $this->email = $email;
+    }
+
+    function setPassword($password = '') {
+        $this->password_hash = password_hash($password, PASSWORD_DEFAULT);
+    }
+
     function getIcon() {
         global $basePath;
         return $basePath . ($this->icon_url ? : 'assets/default.jpg');
