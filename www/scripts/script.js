@@ -1,17 +1,29 @@
 document.addEventListener('DOMContentLoaded', function () {
     const searchInput = document.getElementById('search');
+    const typeSearchInput = document.getElementById('type-search');
     const cards = document.querySelectorAll('#pokemon-list .card');
 
-    if (searchInput) {
-        searchInput.addEventListener('input', () => {
-            const query = searchInput.value.trim().toLowerCase();
+    function filterCards() {
+        const nameQuery = searchInput ? searchInput.value.trim().toLowerCase() : '';
+        const typeQuery = typeSearchInput ? typeSearchInput.value.trim().toLowerCase() : '';
 
-            cards.forEach((card) => {
-                const name = (card.dataset.name || '').toLowerCase();
-                const types = (card.dataset.types || '').toLowerCase();
-                card.style.display = (name.includes(query) || types.includes(query)) ? '' : 'none';
-            });
+        cards.forEach((card) => {
+            const name = (card.dataset.name || '').toLowerCase();
+            const types = (card.dataset.types || '').toLowerCase();
+            
+            const matchesName = name.includes(nameQuery);
+            const matchesType = types.includes(typeQuery);
+            
+            card.style.display = (matchesName && matchesType) ? '' : 'none';
         });
+    }
+
+    if (searchInput) {
+        searchInput.addEventListener('input', filterCards);
+    }
+
+    if (typeSearchInput) {
+        typeSearchInput.addEventListener('input', filterCards);
     }
 
     const allCards = document.querySelectorAll('.card');

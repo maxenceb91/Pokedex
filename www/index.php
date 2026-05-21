@@ -6,8 +6,9 @@ $pokemons = getPokemons();
 
 <body>
     <?php include 'components/header.php'; ?>
-    <div class="p-6">
+    <div class="p-6 flex flex-col sm:flex-row gap-4">
         <input type="text" id="search" placeholder="Search Pokémon..." class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+        <input type="text" id="type-search" placeholder="Search Types..." class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
     </div>
     <ul id="pokemon-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
         <?php foreach ($pokemons as $pokemon): ?>
