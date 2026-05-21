@@ -29,45 +29,45 @@ if (isset($_POST['delete_user_id'])) {
 
         <?php if (!empty($adminUsers) && is_array($adminUsers)): ?>
             <div class="mt-4 overflow-x-auto">
-            <table class="min-w-[720px] w-full overflow-hidden rounded-lg border-collapse">
-                <thead class="bg-slate-100 text-slate-900">
-                    <tr>
-                        <th class="px-4 py-3 text-left font-semibold border-b border-slate-200 whitespace-nowrap">Photo</th>
-                        <th class="px-4 py-3 text-left font-semibold border-b border-slate-200 whitespace-nowrap">Pseudo</th>
-                        <th class="px-4 py-3 text-left font-semibold border-b border-slate-200 whitespace-nowrap">Email</th>
-                        <th class="px-4 py-3 text-left font-semibold border-b border-slate-200 whitespace-nowrap">Admin</th>
-                        <th class="px-4 py-3 text-left font-semibold border-b border-slate-200 whitespace-nowrap">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($adminUsers as $user): ?>
-                        <tr class="hover:bg-slate-50">
-                            <td class="px-4 py-3 border-b border-slate-200">
-                                <?php if (!empty($user->icon_url)): ?>
-                                    <img src="<?= htmlspecialchars($user->icon_url) ?>" alt="Photo de <?= htmlspecialchars($user->username ?? '') ?>" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover border border-slate-200">
-                                <?php else: ?>
-                                    <span class="text-slate-400">Aucune photo</span>
-                                <?php endif; ?>
-                            </td>
-                            <td class="px-4 py-3 border-b border-slate-200 whitespace-nowrap"><?= htmlspecialchars($user->username ?? '') ?></td>
-                            <td class="px-4 py-3 border-b border-slate-200 whitespace-nowrap"><?= htmlspecialchars($user->email ?? '') ?></td>
-                            <td class="px-4 py-3 border-b border-slate-200">
-                                <?php if (!empty($user->admin)): ?>
-                                    <span title="Oui" aria-label="Oui" class="text-green-600">✅</span>
-                                <?php else: ?>
-                                    <span title="Non" aria-label="Non" class="text-red-600">❌</span>
-                                <?php endif; ?>
-                            </td>
-                            <td class="px-4 py-3 border-b border-slate-200 whitespace-nowrap">
-                                <form method="post" class="inline-block" onsubmit="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');">
-                                    <input type="hidden" name="delete_user_id" value="<?= htmlspecialchars($user->id ?? $user->user_id ?? '') ?>">
-                                    <button type="submit" class="inline-block px-3 py-1.5 rounded-md text-white bg-red-600 hover:bg-red-700 hover:cursor-pointer hover:shadow-md">Supprimer</button>
-                                </form>
-                            </td>
+                <table class="w-full overflow-hidden rounded-lg border-collapse">
+                    <thead class="bg-slate-100 text-slate-900">
+                        <tr>
+                            <th class="px-2 sm:px-4 py-2 sm:py-3 text-left font-semibold border-b border-slate-200 whitespace-nowrap text-xs sm:text-sm">Photo</th>
+                            <th class="px-2 sm:px-4 py-2 sm:py-3 text-left font-semibold border-b border-slate-200 whitespace-nowrap text-xs sm:text-sm">Pseudo</th>
+                            <th class="px-2 sm:px-4 py-2 sm:py-3 text-left font-semibold border-b border-slate-200 whitespace-nowrap text-xs sm:text-sm hidden sm:table-cell">Email</th>
+                            <th class="px-2 sm:px-4 py-2 sm:py-3 text-left font-semibold border-b border-slate-200 whitespace-nowrap text-xs sm:text-sm hidden md:table-cell">Admin</th>
+                            <th class="px-2 sm:px-4 py-2 sm:py-3 text-left font-semibold border-b border-slate-200 whitespace-nowrap text-xs sm:text-sm">Actions</th>
                         </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($adminUsers as $user): ?>
+                            <tr class="hover:bg-slate-50">
+                                <td class="px-2 sm:px-4 py-2 sm:py-3 border-b border-slate-200">
+                                    <?php if (!empty($user->icon_url)): ?>
+                                        <img src="<?= htmlspecialchars($user->icon_url) ?>" alt="Photo de <?= htmlspecialchars($user->username ?? '') ?>" class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full object-cover border border-slate-200">
+                                    <?php else: ?>
+                                        <span class="text-slate-400 text-xs sm:text-sm">N/A</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td class="px-2 sm:px-4 py-2 sm:py-3 border-b border-slate-200 whitespace-nowrap text-xs sm:text-sm"><?= htmlspecialchars($user->username ?? '') ?></td>
+                                <td class="px-2 sm:px-4 py-2 sm:py-3 border-b border-slate-200 whitespace-nowrap text-xs sm:text-sm hidden sm:table-cell"><?= htmlspecialchars($user->email ?? '') ?></td>
+                                <td class="px-2 sm:px-4 py-2 sm:py-3 border-b border-slate-200 hidden md:table-cell">
+                                    <?php if (!empty($user->admin)): ?>
+                                        <span title="Oui" aria-label="Oui" class="text-green-600">✅</span>
+                                    <?php else: ?>
+                                        <span title="Non" aria-label="Non" class="text-red-600">❌</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td class="px-2 sm:px-4 py-2 sm:py-3 border-b border-slate-200 whitespace-nowrap">
+                                    <form method="post" class="inline-block" onsubmit="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');">
+                                        <input type="hidden" name="delete_user_id" value="<?= htmlspecialchars($user->id ?? $user->user_id ?? '') ?>">
+                                        <button type="submit" class="inline-block px-2 sm:px-3 py-1 sm:py-1.5 rounded-md text-white text-xs sm:text-sm bg-red-600 hover:bg-red-700 hover:cursor-pointer hover:shadow-md">Supprimer</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
         <?php else: ?>
             <p class="text-slate-500">Aucun utilisateur à afficher.</p>
