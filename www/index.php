@@ -12,13 +12,19 @@ $pokemons = getPokemons();
     </div>
     <ul id="pokemon-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
         <?php foreach ($pokemons as $pokemon): ?>
-            <li class="card bg-white rounded-lg shadow-md p-4 flex flex-col items-center cursor-pointer transition-all duration-300 ease-in-out hover:shadow-xl hover:scale-110 hover:bg-gradient-to-br hover:from-gray-50 hover:to-gray-100" data-name="<?php echo htmlspecialchars($pokemon->name, ENT_QUOTES, 'UTF-8'); ?>" data-types="<?php echo htmlspecialchars(implode(' ', array_filter($pokemon->types)), ENT_QUOTES, 'UTF-8'); ?>">
-                <img class="w-40 h-40 object-contain" src="<?php echo $pokemon->icon; ?>" alt="<?php echo $pokemon->name; ?>">
+            <li class="card relative bg-white border border-gray-100 rounded-2xl shadow-sm p-4 flex flex-col items-center cursor-pointer transition-all duration-300 ease-in-out transform hover:shadow-xl hover:-translate-y-2 hover:border-red-300 group" data-name="<?php echo htmlspecialchars($pokemon->name, ENT_QUOTES, 'UTF-8'); ?>" data-types="<?php echo htmlspecialchars(implode(' ', array_filter($pokemon->types)), ENT_QUOTES, 'UTF-8'); ?>">
+                <div class="w-full flex justify-center bg-gray-50 rounded-xl p-4 transition-colors duration-300 group-hover:bg-red-50">
+                    <img class="w-32 h-32 object-contain transition-transform duration-300 group-hover:scale-110" src="<?php echo $pokemon->icon; ?>" alt="<?php echo $pokemon->name; ?>">
+                </div>
                 <div class="mt-4 w-full text-center">
-                    <h2 class="text-lg font-bold text-gray-800 capitalize"><?php echo $pokemon->name; ?></h2>
-                    <p class="mt-1 text-sm text-gray-600">
-                        Types: <?php echo implode(', ', array_filter($pokemon->types)); ?>
-                    </p>
+                    <h2 class="text-xl font-bold text-gray-800 capitalize tracking-wide"><?php echo $pokemon->name; ?></h2>
+                    <div class="mt-3 flex flex-wrap justify-center gap-2">
+                        <?php foreach (array_filter($pokemon->types) as $type): ?>
+                            <span class="px-3 py-1 text-xs font-semibold uppercase tracking-wider text-gray-700 bg-gray-200 rounded-full shadow-sm">
+                                <?php echo htmlspecialchars($type, ENT_QUOTES, 'UTF-8'); ?>
+                            </span>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
             </li>
         <?php endforeach; ?>
