@@ -25,8 +25,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $user) {
 
         $user->setPassword($_POST['password']);
         $user->save();
+    }else if(isset($_POST['toggle-admin'])) {
+        $targetUser = getUserById($_POST['edit_user_id']);
+        $targetUser->admin = !$targetUser->admin;
+        $targetUser->save();
+        header('Location: ../pages/admin.php');
+        exit();
     }
-}
+} 
 
 header('Location: ../pages/profile.php');
 exit();

@@ -14,7 +14,7 @@ if (isset($_POST['delete_user_id'])) {
 ?>
 
 <body>
-    <?php include '../components/header.php'; ?> 
+    <?php include '../components/header.php'; ?>
     <main class="max-w-5xl mx-auto my-6 sm:my-10 p-4 sm:p-6 bg-white rounded-xl shadow-lg">
         <h1 class="mb-5 text-xl sm:text-2xl font-semibold text-slate-800">Administration des utilisateurs</h1>
         <?php
@@ -52,11 +52,14 @@ if (isset($_POST['delete_user_id'])) {
                                 <td class="px-2 sm:px-4 py-2 sm:py-3 border-b border-slate-200 whitespace-nowrap text-xs sm:text-sm"><?= htmlspecialchars($user->username ?? '') ?></td>
                                 <td class="px-2 sm:px-4 py-2 sm:py-3 border-b border-slate-200 whitespace-nowrap text-xs sm:text-sm hidden sm:table-cell"><?= htmlspecialchars($user->email ?? '') ?></td>
                                 <td class="px-2 sm:px-4 py-2 sm:py-3 border-b border-slate-200 hidden md:table-cell">
-                                    <?php if (!empty($user->admin)): ?>
-                                        <span title="Oui" aria-label="Oui" class="text-green-600">✅</span>
-                                    <?php else: ?>
-                                        <span title="Non" aria-label="Non" class="text-red-600">❌</span>
-                                    <?php endif; ?>
+                                    <form action="../utils/edit_profile.php" method="post" class="inline-block">
+                                        <input type="hidden" name="edit_user_id" value="<?= htmlspecialchars($user->id ?? $user->user_id ?? '') ?>">
+                                        <?php if (!empty($user->admin)): ?>
+                                            <button name="toggle-admin" title="Oui" aria-label="Oui" class="text-green-600">✅</button>
+                                        <?php else: ?>
+                                            <button name="toggle-admin" aria-label="Non" class="text-red-600">❌</button>
+                                        <?php endif; ?>
+                                    </form>
                                 </td>
                                 <td class="px-2 sm:px-4 py-2 sm:py-3 border-b border-slate-200 whitespace-nowrap">
                                     <form method="post" class="inline-block" onsubmit="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');">
