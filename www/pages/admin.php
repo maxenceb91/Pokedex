@@ -43,7 +43,7 @@ if (isset($_POST['delete_user_id'])) {
                         <?php foreach ($adminUsers as $user): ?>
                             <tr class="hover:bg-slate-50">
                                 <td class="px-2 sm:px-4 py-2 sm:py-3 border-b border-slate-200">
-                                    <?php if (!empty($user->icon_url)): ?>
+                                    <?php if (!empty($user->getIcon())): ?>
                                         <img src="<?= htmlspecialchars($user->icon_url) ?>" alt="Photo de <?= htmlspecialchars($user->username ?? '') ?>" class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full object-cover border border-slate-200">
                                     <?php else: ?>
                                         <span class="text-slate-400 text-xs sm:text-sm">N/A</span>
