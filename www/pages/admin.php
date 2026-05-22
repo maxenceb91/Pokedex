@@ -55,9 +55,9 @@ if (isset($_POST['delete_user_id'])) {
                                     <form action="../utils/edit_profile.php" method="post" class="inline-block">
                                         <input type="hidden" name="edit_user_id" value="<?= htmlspecialchars($user->id ?? $user->user_id ?? '') ?>">
                                         <?php if (!empty($user->admin)): ?>
-                                            <button name="toggle-admin" title="Oui" aria-label="Oui" class="text-green-600">✅</button>
+                                            <button name="toggle-admin" title="Oui" aria-label="Oui" class="text-red-600 font-semibold">👑 Administrateur</button>
                                         <?php else: ?>
-                                            <button name="toggle-admin" aria-label="Non" class="text-red-600">❌</button>
+                                            <button name="toggle-admin" aria-label="Non" class="text-blue-600 font-semibold">👤 Utilisateur</button>
                                         <?php endif; ?>
                                     </form>
                                 </td>
