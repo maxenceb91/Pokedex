@@ -4,6 +4,10 @@ require_once '../utils/users.php';
 require_once '../utils/pokemon.php';
 $pokemon = getPokemonByName($_GET['name']);
 
+function format($text = ''){
+    return str_replace('|', ', ', $text);
+}
+
 if (isset($_GET['action']) && $_GET['action'] === 'add-to-team' && isset($_GET['name'])) {
     if (empty($_SESSION['user_id'])) {
         echo '<div class="fixed bottom-6 right-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 px-6 py-4 rounded-lg shadow-lg font-semibold flex items-center gap-3 z-50" style="animation: fadeIn .45s ease-out forwards;">
@@ -172,63 +176,63 @@ if (isset($_GET['action']) && $_GET['action'] === 'add-to-team' && isset($_GET['
                             </div>
                             <div class="bg-white/80 backdrop-blur p-3 rounded-lg border border-gray-100">
                                 <p class="text-gray-500 text-xs">Capacités</p>
-                                <p class="font-bold text-gray-800"><?php echo $pokemon->abilities; ?></p>
+                                <p class="font-bold text-gray-800"><?php echo format($pokemon->abilities); ?></p>
                             </div>
                             <div class="bg-white/80 backdrop-blur p-3 rounded-lg border border-gray-100">
                                 <p class="text-gray-500 text-xs">Capacité Cachée</p>
-                                <p class="font-bold text-gray-800"><?php echo $pokemon->hidden_ability; ?></p>
+                                <p class="font-bold text-gray-800"><?php echo format($pokemon->hidden_ability); ?></p>
                             </div>
                             <div class="bg-white/80 backdrop-blur p-3 rounded-lg border border-gray-100">
                                 <p class="text-gray-500 text-xs">Génération</p>
-                                <p class="font-bold text-gray-800"><?php echo $pokemon->generation; ?></p>
+                                <p class="font-bold text-gray-800"><?php echo format($pokemon->generation); ?></p>
                             </div>
                             <div class="bg-white/80 backdrop-blur p-3 rounded-lg border border-gray-100">
                                 <p class="text-gray-500 text-xs">Légendaire</p>
-                                <p class="font-bold text-gray-800"><?php echo $pokemon->is_legendary ? 'Oui' : 'Non'; ?></p>
+                                <p class="font-bold text-gray-800"><?php echo format($pokemon->is_legendary ? 'Oui' : 'Non'); ?></p>
                             </div>
                             <div class="bg-white/80 backdrop-blur p-3 rounded-lg border border-gray-100">
                                 <p class="text-gray-500 text-xs">Mythique</p>
-                                <p class="font-bold text-gray-800"><?php echo $pokemon->is_mythical ? 'Oui' : 'Non'; ?></p>
+                                <p class="font-bold text-gray-800"><?php echo format($pokemon->is_mythical ? 'Oui' : 'Non'); ?></p>
                             </div>
                             <div class="bg-white/80 backdrop-blur p-3 rounded-lg border border-gray-100">
                                 <p class="text-gray-500 text-xs">Bébé</p>
-                                <p class="font-bold text-gray-800"><?php echo $pokemon->is_baby ? 'Oui' : 'Non'; ?></p>
+                                <p class="font-bold text-gray-800"><?php echo format($pokemon->is_baby ? 'Oui' : 'Non'); ?></p>
                             </div>
                             <div class="bg-white/80 backdrop-blur p-3 rounded-lg border border-gray-100">
                                 <p class="text-gray-500 text-xs">Couleur</p>
-                                <p class="font-bold text-gray-800"><?php echo $pokemon->color; ?></p>
+                                <p class="font-bold text-gray-800"><?php echo format($pokemon->color); ?></p>
                             </div>
                             <div class="bg-white/80 backdrop-blur p-3 rounded-lg border border-gray-100">
                                 <p class="text-gray-500 text-xs">Forme</p>
-                                <p class="font-bold text-gray-800"><?php echo $pokemon->shape; ?></p>
+                                <p class="font-bold text-gray-800"><?php echo format($pokemon->shape); ?></p>
                             </div>
                             <div class="bg-white/80 backdrop-blur p-3 rounded-lg border border-gray-100">
                                 <p class="text-gray-500 text-xs">Groupes d'œufs</p>
-                                <p class="font-bold text-gray-800"><?php echo $pokemon->egg_groups; ?></p>
+                                <p class="font-bold text-gray-800"><?php echo format($pokemon->egg_groups); ?></p>
                             </div>
                             <div class="bg-white/80 backdrop-blur p-3 rounded-lg border border-gray-100">
                                 <p class="text-gray-500 text-xs">Habitat</p>
-                                <p class="font-bold text-gray-800"><?php echo $pokemon->habitat; ?></p>
+                                <p class="font-bold text-gray-800"><?php echo format($pokemon->habitat); ?></p>
                             </div>
                             <div class="bg-white/80 backdrop-blur p-3 rounded-lg border border-gray-100">
                                 <p class="text-gray-500 text-xs">Taux de Croissance</p>
-                                <p class="font-bold text-gray-800"><?php echo $pokemon->growth_rate; ?></p>
+                                <p class="font-bold text-gray-800"><?php echo format($pokemon->growth_rate); ?></p>
                             </div>
                             <div class="bg-white/80 backdrop-blur p-3 rounded-lg border border-gray-100">
                                 <p class="text-gray-500 text-xs">Taux de Capture</p>
-                                <p class="font-bold text-gray-800"><?php echo $pokemon->capture_rate; ?></p>
+                                <p class="font-bold text-gray-800"><?php echo format($pokemon->capture_rate); ?></p>
                             </div>
                             <div class="bg-white/80 backdrop-blur p-3 rounded-lg border border-gray-100">
                                 <p class="text-gray-500 text-xs">Bonheur de Base</p>
-                                <p class="font-bold text-gray-800"><?php echo $pokemon->base_happiness; ?></p>
+                                <p class="font-bold text-gray-800"><?php echo format($pokemon->base_happiness); ?></p>
                             </div>
                             <div class="bg-white/80 backdrop-blur p-3 rounded-lg border border-gray-100">
                                 <p class="text-gray-500 text-xs">Genre</p>
-                                <p class="font-bold text-gray-800"><?php echo $pokemon->genus; ?></p>
+                                <p class="font-bold text-gray-800"><?php echo format($pokemon->genus); ?></p>
                             </div>
                             <div class="bg-white/80 backdrop-blur p-3 rounded-lg border border-gray-100">
                                 <p class="text-gray-500 text-xs">ID Chaîne d'Évolution</p>
-                                <p class="font-bold text-gray-800"><?php echo $pokemon->evolution_chain_id; ?></p>
+                                <p class="font-bold text-gray-800"><?php echo format($pokemon->evolution_chain_id); ?></p>
                             </div>
                         </div>
 
